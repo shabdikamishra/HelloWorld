@@ -54,10 +54,7 @@ public class PalindromeCheckerAppUpdated {
         }
 
         System.out.println("\n--- Two Pointer Technique Result ---");
-        if (isPalindromeTwoPointer)
-            System.out.println("'" + input + "' is a palindrome.");
-        else
-            System.out.println("'" + input + "' is NOT a palindrome.");
+        printResult(input, isPalindromeTwoPointer);
 
         // =================================
         // UC5: Stack-Based Palindrome Check
@@ -77,10 +74,7 @@ public class PalindromeCheckerAppUpdated {
         }
 
         System.out.println("\n--- Stack Technique Result ---");
-        if (isPalindromeStack)
-            System.out.println("'" + input + "' is a palindrome.");
-        else
-            System.out.println("'" + input + "' is NOT a palindrome.");
+        printResult(input, isPalindromeStack);
 
         // =================================
         // UC6: Queue + Stack Palindrome Check
@@ -104,10 +98,7 @@ public class PalindromeCheckerAppUpdated {
         }
 
         System.out.println("\n--- Queue + Stack Technique Result ---");
-        if (isPalindromeQueueStack)
-            System.out.println("'" + input + "' is a palindrome.");
-        else
-            System.out.println("'" + input + "' is NOT a palindrome.");
+        printResult(input, isPalindromeQueueStack);
 
         // =================================
         // UC7: Deque-Based Optimized Palindrome Check
@@ -127,10 +118,7 @@ public class PalindromeCheckerAppUpdated {
         }
 
         System.out.println("\n--- Deque Technique Result ---");
-        if (isPalindromeDeque)
-            System.out.println("'" + input + "' is a palindrome.");
-        else
-            System.out.println("'" + input + "' is NOT a palindrome.");
+        printResult(input, isPalindromeDeque);
 
         // =================================
         // UC8: Linked List Based Palindrome Check
@@ -143,10 +131,7 @@ public class PalindromeCheckerAppUpdated {
         boolean isPalindromeLinkedList = isPalindromeLinkedList(head);
 
         System.out.println("\n--- Linked List Technique Result ---");
-        if (isPalindromeLinkedList)
-            System.out.println("'" + input + "' is a palindrome.");
-        else
-            System.out.println("'" + input + "' is NOT a palindrome.");
+        printResult(input, isPalindromeLinkedList);
 
         // =================================
         // UC9: Recursive Palindrome Checker
@@ -154,10 +139,30 @@ public class PalindromeCheckerAppUpdated {
         boolean isPalindromeRecursive = isPalindromeRecursive(input.toLowerCase(), 0, input.length() - 1);
 
         System.out.println("\n--- Recursive Technique Result ---");
-        if (isPalindromeRecursive)
-            System.out.println("'" + input + "' is a palindrome.");
-        else
-            System.out.println("'" + input + "' is NOT a palindrome.");
+        printResult(input, isPalindromeRecursive);
+
+        // =================================
+        // UC10: Case-Insensitive & Space-Ignored Palindrome
+        // =================================
+
+        // Normalize string (remove spaces & special characters)
+        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+        boolean isPalindromeNormalized = true;
+        int l = 0;
+        int r = normalized.length() - 1;
+
+        while (l < r) {
+            if (normalized.charAt(l) != normalized.charAt(r)) {
+                isPalindromeNormalized = false;
+                break;
+            }
+            l++;
+            r--;
+        }
+
+        System.out.println("\n--- Case-Insensitive & Space-Ignored Result ---");
+        printResult(input, isPalindromeNormalized);
 
         scanner.close();
     }
@@ -169,6 +174,14 @@ public class PalindromeCheckerAppUpdated {
         System.out.println("   Version: " + VERSION);
         System.out.println("========================================");
         System.out.println();
+    }
+
+    // Result Printer
+    private static void printResult(String input, boolean result) {
+        if (result)
+            System.out.println("'" + input + "' is a palindrome.");
+        else
+            System.out.println("'" + input + "' is NOT a palindrome.");
     }
 
     // =========================
@@ -238,14 +251,12 @@ public class PalindromeCheckerAppUpdated {
     // =========================
     static boolean isPalindromeRecursive(String str, int left, int right) {
 
-        // Base condition
         if (left >= right)
             return true;
 
         if (str.charAt(left) != str.charAt(right))
             return false;
 
-        // Recursive call
         return isPalindromeRecursive(str, left + 1, right - 1);
     }
 }
