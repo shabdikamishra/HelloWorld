@@ -101,7 +101,7 @@ public class PalindromeCheckerAppUpdated {
         printResult(input, isPalindromeQueueStack);
 
         // =================================
-        // UC7: Deque-Based Optimized Palindrome Check
+        // UC7: Deque-Based Optimized Check
         // =================================
         Deque<Character> deque = new ArrayDeque<>();
 
@@ -121,7 +121,7 @@ public class PalindromeCheckerAppUpdated {
         printResult(input, isPalindromeDeque);
 
         // =================================
-        // UC8: Linked List Based Palindrome Check
+        // UC8: Linked List Palindrome Check
         // =================================
         Node head = null;
 
@@ -142,10 +142,8 @@ public class PalindromeCheckerAppUpdated {
         printResult(input, isPalindromeRecursive);
 
         // =================================
-        // UC10: Case-Insensitive & Space-Ignored Palindrome
+        // UC10: Case-Insensitive & Space-Ignored
         // =================================
-
-        // Normalize string (remove spaces & special characters)
         String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
         boolean isPalindromeNormalized = true;
@@ -164,6 +162,15 @@ public class PalindromeCheckerAppUpdated {
         System.out.println("\n--- Case-Insensitive & Space-Ignored Result ---");
         printResult(input, isPalindromeNormalized);
 
+        // =================================
+        // UC11: Object-Oriented Palindrome Service
+        // =================================
+        PalindromeChecker service = new PalindromeChecker();
+        boolean isPalindromeOOP = service.checkPalindrome(input);
+
+        System.out.println("\n--- OOP Service Result ---");
+        printResult(input, isPalindromeOOP);
+
         scanner.close();
     }
 
@@ -176,7 +183,6 @@ public class PalindromeCheckerAppUpdated {
         System.out.println();
     }
 
-    // Result Printer
     private static void printResult(String input, boolean result) {
         if (result)
             System.out.println("'" + input + "' is a palindrome.");
@@ -258,5 +264,30 @@ public class PalindromeCheckerAppUpdated {
             return false;
 
         return isPalindromeRecursive(str, left + 1, right - 1);
+    }
+}
+
+// =================================
+// UC11 PalindromeChecker Class (OOP)
+// =================================
+class PalindromeChecker {
+
+    public boolean checkPalindrome(String input) {
+
+        String processed = input.toLowerCase().replaceAll("[^a-zA-Z0-9]", "");
+        char[] arr = processed.toCharArray();
+
+        int left = 0;
+        int right = arr.length - 1;
+
+        while (left < right) {
+            if (arr[left] != arr[right])
+                return false;
+
+            left++;
+            right--;
+        }
+
+        return true;
     }
 }
